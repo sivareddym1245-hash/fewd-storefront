@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>morrow | Everyday pieces, elevated</title>
+  <link rel="stylesheet" href="gfgfd.css">
+  </head>
+  <body>
+    <div class="announcement">Complimentary shipping on orders over $100 <span>↗</span></div>
+    <header class="site-header">
+      <button class="icon-button menu-button" aria-label="Open menu">☰</button>
+      <a class="logo" href="#top">morrow<span>.</span></a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <a href="#shop">New arrivals</a><a href="#shop">Clothing</a><a href="#shop">Accessories</a><a href="#story">Our story</a>
+      </nav>
+      <div class="header-actions"><button class="text-button">Search</button><button class="icon-button" aria-label="Your account">◎</button><button class="cart-button" id="cartButton">Bag <span id="cartCount">0</span></button></div>
+    </header>
+    <main id="top">
+      <section class="hero">
+        <div class="hero-copy"><p class="eyebrow">The autumn edit / 01</p><h1>Made for the<br><em>in-between.</em></h1><p class="hero-text">Thoughtful layers and everyday essentials designed to move with your life.</p><a class="primary-button" href="#shop">Shop the edit <span>↗</span></a></div>
+        <div class="hero-image" role="img" aria-label="Model wearing the new autumn collection"></div>
+        <div class="hero-note">01 — 04<br><span>Quiet confidence,<br>in every detail.</span></div>
+      </section>
+      <section class="shop-section" id="shop">
+        <div class="section-heading"><div><p class="eyebrow">Curated for now</p><h2>New arrivals</h2></div><p class="section-intro">A considered collection of pieces to keep close, season after season.</p></div>
+        <div class="shop-toolbar"><div class="filters" role="group" aria-label="Filter products"><button class="filter active" data-filter="all">All pieces</button><button class="filter" data-filter="clothing">Clothing</button><button class="filter" data-filter="accessories">Accessories</button></div><span class="product-count">04 pieces</span></div>
+        <div class="product-grid">
+          <article class="product-card" data-category="clothing" data-name="The Sunday Coat" data-price="248"><div class="product-image coat"><span class="product-tag">Just in</span><button class="heart" aria-label="Save The Sunday Coat">♡</button></div><div class="product-info"><div><h3>The Sunday Coat</h3><p>Wool blend / oat</p></div><strong>$248</strong></div><button class="add-button">Add to bag</button></article>
+          <article class="product-card" data-category="clothing" data-name="Everyday Knit" data-price="118"><div class="product-image knit"><button class="heart" aria-label="Save Everyday Knit">♡</button></div><div class="product-info"><div><h3>Everyday Knit</h3><p>Organic cotton / moss</p></div><strong>$118</strong></div><button class="add-button">Add to bag</button></article>
+          <article class="product-card" data-category="accessories" data-name="Soft Form Bag" data-price="154"><div class="product-image bag"><span class="product-tag">Bestseller</span><button class="heart" aria-label="Save Soft Form Bag">♡</button></div><div class="product-info"><div><h3>Soft Form Bag</h3><p>Vegetable-tanned leather / black</p></div><strong>$154</strong></div><button class="add-button">Add to bag</button></article>
+          <article class="product-card" data-category="clothing" data-name="Ribbed Long Sleeve" data-price="86"><div class="product-image sleeve"><button class="heart" aria-label="Save Ribbed Long Sleeve">♡</button></div><div class="product-info"><div><h3>Ribbed Long Sleeve</h3><p>Modal stretch / ecru</p></div><strong>$86</strong></div><button class="add-button">Add to bag</button></article>
+        </div>
+      </section>
+      <section class="story" id="story"><p class="eyebrow">Less, but better</p><h2>Good things take<br><em>their time.</em></h2><a class="text-link" href="#shop">Read our story ↗</a></section>
+    </main>
+    <aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag"><div class="drawer-header"><h2>Your bag</h2><button class="close-button" id="closeCart" aria-label="Close bag">×</button></div><div class="cart-items" id="cartItems"><p class="empty-cart">Your bag is waiting for something good.</p></div><div class="cart-footer"><div><span>Subtotal</span><strong id="cartTotal">$0</strong></div><button class="checkout-button">Checkout <span>↗</span></button></div></aside>
+    <div class="overlay" id="overlay"></div>
+    <script>
+      const cart = [];
+      const drawer = document.getElementById('cartDrawer');
+      const overlay = document.getElementById('overlay');
+      const renderCart = () => {
+        document.getElementById('cartCount').textContent = cart.length;
+        document.getElementById('cartTotal').textContent = '$' + cart.reduce((sum, item) => sum + item.price, 0);
+        document.getElementById('cartItems').innerHTML = cart.length ? cart.map((item, index) => `<div class="cart-item"><div><h3>${item.name}</h3><p>$${item.price}</p></div><button data-remove="${index}">Remove</button></div>`).join('') : '<p class="empty-cart">Your bag is waiting for something good.</p>';
+      };
+      const toggleCart = open => { drawer.classList.toggle('open', open); overlay.classList.toggle('visible', open); };
+      document.querySelectorAll('.add-button').forEach(button => button.addEventListener('click', () => { const card = button.closest('.product-card'); cart.push({ name: card.dataset.name, price: Number(card.dataset.price) }); renderCart(); toggleCart(true); }));
+      document.getElementById('cartItems').addEventListener('click', event => { if (event.target.dataset.remove) { cart.splice(Number(event.target.dataset.remove), 1); renderCart(); } });
+      document.getElementById('cartButton').addEventListener('click', () => toggleCart(true));
+      document.getElementById('closeCart').addEventListener('click', () => toggleCart(false));
+      overlay.addEventListener('click', () => toggleCart(false));
+      document.querySelectorAll('.filter').forEach(filter => filter.addEventListener('click', () => { document.querySelectorAll('.filter').forEach(item => item.classList.remove('active')); filter.classList.add('active'); document.querySelectorAll('.product-card').forEach(card => card.hidden = filter.dataset.filter !== 'all' && card.dataset.category !== filter.dataset.filter); }));
+    </script>
+  </body>
+  </html>
+</head>
+<body>
+  <h1>Tic Tac Toe</h1>
+
+  <!-- Mode Selection -->
+  <div class="mode">
+    <button id="twoPlayerBtn">Two Player Mode</button>
+    <button id="aiBtn">Play vs AI</button>
+  </div>
+
+  <!-- Game Board -->
+  <div id="board" class="board"></div>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button id="rematchBtn">Rematch</button>
+    <button id="resetBtn">Reset</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <p>Player X Wins: <span id="xWins">0</span></p>
+    <p>Player O Wins: <span id="oWins">0</span></p>
+    <p>Draws: <span id="draws">0</span></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
